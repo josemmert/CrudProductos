@@ -1,6 +1,4 @@
-//import { useState } from "react";
 import { Form, Button, FormGroup, FormLabel } from "react-bootstrap";
-//import { validarCategoria } from "../../helpers/validaciones";
 import clsx from "clsx";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -10,9 +8,6 @@ import { useNavigate } from "react-router-dom";
 const CrearProducto = () => {
   //Los productos van a tener las siguientes prop,
   //titulo, descripcion y categoria; de fondo, ademas va a tener un identificador unico (id hecha por una biblioteca luego incorporada).
-  /* const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState(""); */
 
   //UTILIZAMOS AL VARIABLE DE ENTORNO
 
@@ -66,8 +61,6 @@ const CrearProducto = () => {
               },
               body: JSON.stringify(values),
             });
-            //console.log("RESPONSE", response);
-            //console.log(response.status);
             if (response.status === 201) {
               formik.resetForm();
               Swal.fire({
@@ -75,6 +68,7 @@ const CrearProducto = () => {
                 text: "Se creó un nuevo producto",
                 icon: "success",
               });
+              navigate('/administracion')
             }
           } catch (error) {
             console.log("ERROR-->", error);
@@ -85,17 +79,6 @@ const CrearProducto = () => {
   });
 
   //FIN DE CONFIGURACION DE FORMIK
-
-  /*const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Desde Submit');
-    const nuevoProducto={
-      titulo: title,
-      descripcion: description,
-      categoria: category,
-    };
-    console.log("###Nuevo Producto-->", nuevoProducto);
-  };*/
 
   return (
     <div className="container py-3 my-3">
@@ -111,10 +94,6 @@ const CrearProducto = () => {
             placeholder="Ingrese el titulo del producto"
             minLength={4}
             maxLength={25}
-            /*value={title}
-            onChange={(e) => {
-              setTitle(e.currentTarget.value);
-            }}*/
             name="title"
             {...formik.getFieldProps("title")}
             className={clsx(
@@ -143,10 +122,6 @@ const CrearProducto = () => {
             rows={3}
             minLength={4}
             maxLength={200}
-            /*value={description}
-            onChange={(e) => {
-              setDescription(e.currentTarget.value);
-            }}*/
             name="description"
             {...formik.getFieldProps("description")}
             className={clsx(
@@ -171,20 +146,6 @@ const CrearProducto = () => {
           <FormLabel>Categoria</FormLabel>
           <Form.Select
             aria-label="category"
-            /*</FormGroup>value={category}
-            onChange={(e) => {
-              let resultado=validarCategoria(e.currentTarget.value);
-              console.log('resultado de validar', resultado);
-
-              setCategory(e.currentTarget.value);
-            }}
-            className={clsx("form-select", 
-            {
-              "is-valid": validarCategoria(category)
-            },
-            {
-              "is-invalid": !validarCategoria(category)
-            })}*/
             name="category"
             {...formik.getFieldProps("category")}
             className={clsx(
@@ -210,7 +171,7 @@ const CrearProducto = () => {
         </FormGroup>
 
         <Button variant="primary" type="submit">
-          Enviar
+          Guardar
         </Button>
       </Form>
     </div>

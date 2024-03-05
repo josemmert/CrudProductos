@@ -1,5 +1,4 @@
 import { Form, Button, FormGroup, FormLabel } from "react-bootstrap";
-//import { validarCategoria } from "../../helpers/validaciones";
 import clsx from "clsx";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -197,7 +196,7 @@ const Editar = () => {
         </FormGroup>
 
         <Button variant="primary" type="submit">
-          Enviar
+          Editar Producto
         </Button>
       </Form>
     </div>

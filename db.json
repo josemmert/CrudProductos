@@ -14,9 +14,21 @@
     },
     {
       "title": "Marinaro Granadina",
-      "description": "Marinaro sabor Granadina 2.25 Lts. Descartable",
+      "description": "Gaseosa 3 Lts NO Retornable",
       "category": "Bebidas",
       "id": "bf43"
+    },
+    {
+      "id": "a636",
+      "title": "Arroz Gallo Oro",
+      "description": "Arroz Gallo Oro de 500grs en box de cartón",
+      "category": "Alimentos"
+    },
+    {
+      "id": "61d8",
+      "title": "Mr. Musculo Cocina",
+      "description": "Desengrasante en Spray 500ml.",
+      "category": "Limpieza"
     }
   ]
 }
