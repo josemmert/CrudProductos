@@ -7,16 +7,28 @@
       "category": "Bebidas"
     },
     {
-      "id": "532c",
-      "title": "Pepsi",
-      "description": "Gaseosa sabor cola 2 litros",
-      "category": "Bebidas"
+      "title": "Pepsi 3 Lts.",
+      "description": "Gaseosa sabor cola 3 litros Retornable",
+      "category": "Bebidas",
+      "id": "532c"
     },
     {
-      "id": "bf43",
-      "title": "Marinaro",
-      "description": "Marinaro sabor Granadina 3 Lts.",
-      "category": "Bebidas"
+      "title": "Marinaro Granadina",
+      "description": "Gaseosa 3 Lts NO Retornable",
+      "category": "Bebidas",
+      "id": "bf43"
+    },
+    {
+      "id": "a636",
+      "title": "Arroz Gallo Oro",
+      "description": "Arroz Gallo Oro de 500grs en box de cartón",
+      "category": "Alimentos"
+    },
+    {
+      "id": "61d8",
+      "title": "Mr. Musculo Cocina",
+      "description": "Desengrasante en Spray 500ml.",
+      "category": "Limpieza"
     }
   ]
 }

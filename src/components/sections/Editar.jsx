@@ -3,19 +3,34 @@ import clsx from "clsx";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const CrearProducto = () => {
-  //Los productos van a tener las siguientes prop,
-  //titulo, descripcion y categoria; de fondo, ademas va a tener un identificador unico (id hecha por una biblioteca luego incorporada).
+const Editar = () => {
+  const [producto, setProducto] = useState(undefined);
 
-  //UTILIZAMOS AL VARIABLE DE ENTORNO
+  const { id } = useParams();
 
   const API = import.meta.env.VITE_API;
 
+  const getProducto = async () => {
+    try {
+      const { data } = await axios.get(`${API}/productos/${id}`);
+      setProducto(data);
+    } catch (error) {
+      console.log("Error-->", error);
+    }
+  };
+
+  useEffect(() => {
+    console.log("ID del producto a editar-->", id);
+    getProducto();
+  }, []);
+
   //utilizamos useNavigate de react router dom
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   //INICIO DE CONFIGURTACION DE FORMIK
   const ProductoSchema = Yup.object().shape({
     title: Yup.string()
@@ -44,7 +59,7 @@ const CrearProducto = () => {
       console.log("Values de Formik-->", values);
 
       Swal.fire({
-        title: "¿Estas seguro de guardar este producto?",
+        title: "¿Estas seguro de editar este producto?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -54,21 +69,21 @@ const CrearProducto = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            const response = await fetch(`${API}/productos`, {
-              method: "POST",
+            const response = await fetch(`${API}/productos/${id}`, {
+              method: "PUT",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(values),
             });
-            if (response.status === 201) {
-              formik.resetForm();
+            if (response.status === 200) {
+              
               Swal.fire({
                 title: "Exito",
-                text: "Se creó un nuevo producto",
+                text: "Se actualizó el producto",
                 icon: "success",
               });
-              navigate('/administracion')
+              navigate('/administracion');
             }
           } catch (error) {
             console.log("ERROR-->", error);
@@ -80,11 +95,21 @@ const CrearProducto = () => {
 
   //FIN DE CONFIGURACION DE FORMIK
 
+  useEffect(() => {
+    if (producto !== undefined) {
+      formik.setFieldValue("title", producto.title, true);
+      formik.setFieldValue("description", producto.description, true);
+      formik.setFieldValue("category", producto.category, true);
+    }
+  }, [producto]);
+
   return (
     <div className="container py-3 my-3">
-      <Button variant="secondary" onClick={()=>navigate(-1)}>Atras</Button>
+      <Button variant="secondary" onClick={() => navigate(-1)}>
+        Atras
+      </Button>
       <div className="text-center">
-        <h2>Crear Producto</h2>
+        <h2>Editar Producto</h2>
       </div>
       <Form onSubmit={formik.handleSubmit}>
         <Form.Group className="mb-3" controlId="title">
@@ -171,11 +196,11 @@ const CrearProducto = () => {
         </FormGroup>
 
         <Button variant="primary" type="submit">
-          Guardar
+          Editar Producto
         </Button>
       </Form>
     </div>
   );
 };
 
-export default CrearProducto;
+export default Editar;
