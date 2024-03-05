@@ -1,9 +1,11 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { Form, Button, FormGroup, FormLabel } from "react-bootstrap";
-import { validarCategoria } from "../../helpers/validaciones";
+//import { validarCategoria } from "../../helpers/validaciones";
 import clsx from "clsx";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CrearProducto = () => {
   //Los productos van a tener las siguientes prop,
@@ -11,14 +13,23 @@ const CrearProducto = () => {
   /* const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState(""); */
+
+  //UTILIZAMOS AL VARIABLE DE ENTORNO
+
+  const API = import.meta.env.VITE_API;
+
+  //utilizamos useNavigate de react router dom
+
+  const navigate=useNavigate();
+  //INICIO DE CONFIGURTACION DE FORMIK
   const ProductoSchema = Yup.object().shape({
     title: Yup.string()
       .min(4, "min 4 caracteres")
       .max(20, "max 20 caracteres")
       .required("El titulo es requerido"),
     description: Yup.string()
-      .min(4)
-      .max(200)
+      .min(4, "min 4 caracteres")
+      .max(200, "max 200 caracteres")
       .required("El descripción es requerida"),
     category: Yup.string().required("La categoria es requerida"),
   });
@@ -36,8 +47,44 @@ const CrearProducto = () => {
     validateOnChange: true,
     onSubmit: (values) => {
       console.log("Values de Formik-->", values);
+
+      Swal.fire({
+        title: "¿Estas seguro de guardar este producto?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Guardar",
+        cancelButtonText: "Cancelar",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await fetch(`${API}/productos`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+            });
+            //console.log("RESPONSE", response);
+            //console.log(response.status);
+            if (response.status === 201) {
+              formik.resetForm();
+              Swal.fire({
+                title: "Exito",
+                text: "Se creó un nuevo producto",
+                icon: "success",
+              });
+            }
+          } catch (error) {
+            console.log("ERROR-->", error);
+          }
+        }
+      });
     },
   });
+
+  //FIN DE CONFIGURACION DE FORMIK
 
   /*const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +99,7 @@ const CrearProducto = () => {
 
   return (
     <div className="container py-3 my-3">
+      <Button variant="secondary" onClick={()=>navigate(-1)}>Atras</Button>
       <div className="text-center">
         <h2>Crear Producto</h2>
       </div>

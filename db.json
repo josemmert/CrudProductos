@@ -1,0 +1,16 @@
+{
+  "productos": [
+    {
+      "id": "5828",
+      "title": "Coca Cola",
+      "description": "Gaseosa Sabor Cola 3LTS.",
+      "category": "Bebidas"
+    },
+    {
+      "id": "532c",
+      "title": "Pepsi",
+      "description": "Gaseosa sabor cola 2 litros",
+      "category": "Bebidas"
+    }
+  ]
+}
