@@ -11,6 +11,12 @@
       "title": "Pepsi",
       "description": "Gaseosa sabor cola 2 litros",
       "category": "Bebidas"
+    },
+    {
+      "id": "bf43",
+      "title": "Marinaro",
+      "description": "Marinaro sabor Granadina 3 Lts.",
+      "category": "Bebidas"
     }
   ]
 }
