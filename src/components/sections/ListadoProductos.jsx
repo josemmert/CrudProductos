@@ -3,7 +3,6 @@ import { Table } from "react-bootstrap";
 import Producto from "./Producto";
 import ModalEditar from "./ModalEditar";
 
-
 const ListadoProductos = () => {
   const [productos, setProductos] = useState([]);
 
@@ -12,10 +11,10 @@ const ListadoProductos = () => {
 
   const handleClose = () => {
     setProductEdit(undefined);
-    setShow(false)
+    setShow(false);
   };
   const handleShow = (prod) => {
-    setProductEdit(prod)
+    setProductEdit(prod);
     setShow(true);
   };
 
@@ -48,30 +47,42 @@ const ListadoProductos = () => {
 
   return (
     <>
-    <ModalEditar show={show} handleClose={handleClose} producto={productEdit} getProductos={getProductos} />
-    <div className="container-fluid">
-      <div className="text-center">
-        <h2>Listado Productos</h2>
+      <ModalEditar
+        show={show}
+        handleClose={handleClose}
+        producto={productEdit}
+        getProductos={getProductos}
+      />
+      <div className="container-fluid">
+        <div className="text-center">
+          <h2>Listado Productos</h2>
+        </div>
+        <div className="table-responsive">
+          <Table striped bordered hover variant="dark">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Descripción</th>
+                <th>Categoria</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productos.map((element) => {
+                return (
+                  <Producto
+                    producto={element}
+                    handleShow={handleShow}
+                    key={element.id}
+                    getProductos={getProductos}
+                  />
+                );
+              })}
+            </tbody>
+          </Table>
+        </div>
       </div>
-      <div className="table-responsive">
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Titulo</th>
-            <th>Descripción</th>
-            <th>Categoria</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productos.map((element) => {
-            return <Producto producto={element} handleShow={handleShow} key={element.id} />;
-          })}
-        </tbody>
-      </Table>
-      </div>
-    </div>
     </>
   );
 };

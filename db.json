@@ -1,12 +1,6 @@
 {
   "productos": [
     {
-      "id": "5828",
-      "title": "Coca Cola",
-      "description": "Gaseosa Sabor Cola 3LTS.",
-      "category": "Bebidas"
-    },
-    {
       "title": "Pepsi 3 Lts.",
       "description": "Gaseosa sabor cola 3 litros Retornable",
       "category": "Bebidas",
