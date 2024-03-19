@@ -3,8 +3,14 @@ import clsx from "clsx";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
+import UserContext from "../../Context/UserContext";
+import { useContext } from "react";
+
 
 const Login = ({ isOpen, handleClose }) => {
+
+  const {setCurrentUser, SaveAuth}=useContext(UserContext);
+
   const API=import.meta.env.VITE_APIV2;
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -29,18 +35,20 @@ const Login = ({ isOpen, handleClose }) => {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values) => {
-      console.log("VALUES-->", values);
       try {
         const response=await axios.post(`${API}/users/login`,values);
-        console.log('Respuesta Login-->', response.data);
+        
         if (response.status===200) {
+          SaveAuth(response.data);
+          setCurrentUser(response.data);
           formik.resetForm();
           handleClose();
         }else{
-          alert('Ocurrió un error')
+          
         }
       } catch (error) {
-        console.log(error);
+        alert(`${error.response.data.message}`)
+        console.error(error);
       }
     },
   });

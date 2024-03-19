@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import CardProducto from "../sections/CardProducto";
 
+
 const Home = () => {
+
   const [productos, setProductos] = useState([]);
 
   const API = import.meta.env.VITE_API;
@@ -27,6 +29,9 @@ const Home = () => {
       setProductos([]);
     };
   }, []);
+
+
+
 
   return (
     <div>
