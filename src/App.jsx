@@ -9,6 +9,7 @@ import Editar from "./components/sections/Editar";
 import ErrorPage from "./components/pages/ErrorPage";
 import UserContext from "./Context/UserContext";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -32,7 +33,18 @@ function App() {
     return ()=>{
       setCurrentUser(undefined);
     };
-  },[])
+  },[]);
+
+  useEffect(()=>{
+
+    if (currentUser!==undefined) {
+      //configurar axios
+      axios.defaults.headers.common["Authorization"]=`Bearer ${currentUser.token}`;
+    }else{
+      //quitar la configuración del header de axios
+      delete axios.defaults.headers.common["Authorization"];
+    }
+  },[currentUser]);
 
   return (
     <>

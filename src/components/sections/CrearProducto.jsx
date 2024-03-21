@@ -4,8 +4,14 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+// import UserContext from "../../Context/UserContext";
+// import { useContext } from "react";
+import axios from "axios";
 
 const CrearProducto = () => {
+  //ESTO SE UTILIZA PARA LA CONFIGURACION DEL HEADER "Authorization" EN FETCH
+  //const {currentUser}=useContext(UserContext);
+
   //Los productos van a tener las siguientes prop,
   //titulo, descripcion y categoria; de fondo, ademas va a tener un identificador unico (id hecha por una biblioteca luego incorporada).
 
@@ -20,7 +26,7 @@ const CrearProducto = () => {
   const ProductoSchema = Yup.object().shape({
     title: Yup.string()
       .min(4, "min 4 caracteres")
-      .max(20, "max 20 caracteres")
+      .max(20, "max 30 caracteres")
       .required("El titulo es requerido"),
     description: Yup.string()
       .min(4, "min 4 caracteres")
@@ -54,13 +60,18 @@ const CrearProducto = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            const response = await fetch(`${API}/productos`, {
+            /* OPCION CON FETCH INCLUIDO EL HEADER AUTHORIZATION
+            const response = await fetch(`${API}/products`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${currentUser.token}`
               },
               body: JSON.stringify(values),
-            });
+            });*/
+            //OPCION CON AXIOS YA CONFIGURADO EL HEADER AUTHORIZATION
+            const response=await axios.post(`${API}/products`, values);
+
             if (response.status === 201) {
               formik.resetForm();
               Swal.fire({
@@ -93,7 +104,7 @@ const CrearProducto = () => {
             type="text"
             placeholder="Ingrese el titulo del producto"
             minLength={4}
-            maxLength={25}
+            maxLength={30}
             name="title"
             {...formik.getFieldProps("title")}
             className={clsx(
