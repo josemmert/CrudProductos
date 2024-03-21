@@ -12,7 +12,7 @@ const Home = () => {
 
   const getProductos = async () => {
     try {
-      const response = await axios.get(`${API}/productos`);
+      const response = await axios.get(`${API}/products`);
       console.log("Response Axios-->", response);
       /*const products=response.data;
       setProductos(productos);*/
