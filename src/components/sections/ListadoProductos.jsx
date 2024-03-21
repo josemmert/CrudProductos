@@ -74,7 +74,7 @@ const ListadoProductos = () => {
                   <Producto
                     producto={element}
                     handleShow={handleShow}
-                    key={element.id}
+                    key={element._id}
                     getProductos={getProductos}
                   />
                 );
