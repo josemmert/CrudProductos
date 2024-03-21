@@ -1,8 +1,8 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import BorrarProducto from "./BorrarProducto/BorrarProducto";
+//import BorrarProducto from "./BorrarProducto/BorrarProducto";
 import Swal from "sweetalert2";
-import axios from "axios";
+//import axios from "axios";
 
 
 const Producto = ({producto, handleShow, getProductos}) => {
@@ -21,7 +21,7 @@ const Producto = ({producto, handleShow, getProductos}) => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            await fetch(`${API}/productos/${producto.id}`, {
+            await fetch(`${API}/productos/${producto._id}`, {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
@@ -46,13 +46,13 @@ const Producto = ({producto, handleShow, getProductos}) => {
   return (
     <>
       <tr>
-        <td>{producto.id}</td>
+        <td>{producto._id}</td>
         <td>{producto.title}</td>
         <td>{producto.description}</td>
         <td>{producto.category}</td>
         <td className="d-flex justify-content-around">
             <Button type="button" variant="warning" onClick={()=>{
-              navigate(`/editar/${producto.id}`)
+              navigate(`/editar/${producto._id}`)
             }}>Editar</Button>
             <Button type="button" variant="success" onClick={()=>{
               console.log('modal edicion');
