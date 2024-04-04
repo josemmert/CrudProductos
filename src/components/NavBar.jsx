@@ -6,10 +6,22 @@ import Login from "./sections/Login";
 import { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import UserContext from "../Context/UserContext";
+import Registrar from "./sections/Registrar";
 
 const NavBar = () => {
   const { currentUser, setCurrentUser, RemoveAuth } = useContext(UserContext);
 
+  const [isOpenRegis, setIsOpenRegis] = useState(false);
+
+  const handleShowRegis = () => {
+    setIsOpenRegis(true);
+  };
+
+  const handleCloseRegis = () => {
+    setIsOpenRegis(false);
+  };
+  
+//-----------------
   const [isOpen, setIsOpen] = useState(false);
 
   const handleShow = () => {
@@ -27,6 +39,7 @@ const NavBar = () => {
 
   return (
     <>
+      <Registrar isOpenRegis={isOpenRegis} handleCloseRegis={handleCloseRegis} />
       <Login isOpen={isOpen} handleClose={handleClose} />
       <Navbar
         expand="lg"
@@ -68,7 +81,7 @@ const NavBar = () => {
                 <Button
                 variant="success"
                 className="mx-2 my-2 my-md-0"
-                
+                onClick={handleShowRegis}
               >
                 Registrarme
               </Button>
