@@ -1,14 +1,15 @@
+import axios from "axios";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 //import BorrarProducto from "./BorrarProducto/BorrarProducto";
 import Swal from "sweetalert2";
-//import axios from "axios";
+
 
 
 const Producto = ({producto, handleShow, getProductos}) => {
   const API= import.meta.env.VITE_API;
   const navigate=useNavigate();
-  
+
   const handleDelete= ()=>{
     Swal.fire({
         title: "¿Estas seguro de eliminar este producto?",
@@ -21,17 +22,18 @@ const Producto = ({producto, handleShow, getProductos}) => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            await fetch(`${API}/productos/${producto._id}`, {
+            /*await fetch(`${API}/productos/${producto._id}`, {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
               },
     
-            });
+            });*/
+            await axios.delete(`${API}/products/${producto._id}`)
             getProductos();
               Swal.fire({
                 title: "Exito",
-                text: "Se creó un nuevo producto",
+                text: "Se Eliminó el producto",
                 icon: "success",
               });
               

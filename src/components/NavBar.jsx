@@ -20,10 +20,10 @@ const NavBar = () => {
     setIsOpen(false);
   };
 
-  const Logout=()=>{
+  const Logout = () => {
     RemoveAuth();
     setCurrentUser(undefined);
-  }
+  };
 
   return (
     <>
@@ -55,16 +55,33 @@ const NavBar = () => {
               )}
             </Nav>
             <Nav>
-              <Button
-                variant="primary"
+              {(currentUser === undefined && 
+                <Button
+                  variant="primary"
+                  className="mx-2 my-2 my-md-0"
+                  onClick={handleShow}
+                >
+                  Ingresar
+                </Button>
+              )}
+              {(currentUser === undefined && 
+                <Button
+                variant="success"
                 className="mx-2 my-2 my-md-0"
-                onClick={handleShow}
+                
               >
-                Login
+                Registrarme
               </Button>
-              <Button variant="secondary" className="mx-2 my-2 my-md-0" onClick={Logout}>
-                Logout
-              </Button>
+              )}
+              
+              {currentUser!==undefined && <Button
+                variant="secondary"
+                className="mx-2 my-2 my-md-0"
+                onClick={Logout}
+              >
+                Cerrar Sesión
+              </Button>}
+              
             </Nav>
           </Navbar.Collapse>
         </Container>
